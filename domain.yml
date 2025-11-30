@@ -1,0 +1,29 @@
+version: "3.1"
+
+intents:
+  - chaohoi
+  - tambiet
+  - to_chuc_nghi_le
+  - trach_nhiem_va_quyen_han
+
+actions:
+  - toChucNghiLeAction
+  - trachNhiemVaQuyenHanAction
+  - utter_chaohoi
+  - utter_tambiet
+
+entities:
+  - GiangVien
+  - CBCS
+  - GiangVienThinhGiang
+
+responses:
+  utter_chaohoi:
+    - text: "chào bạn!"
+
+  utter_tambiet:
+    - text: "tạm biệt"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,21 @@
+version: "3.1"
+
+rules:
+  - rule: to_chuc_nghi_le
+    steps:
+      - intent: to_chuc_nghi_le
+      - action: toChucNghiLeAction
+  - rule: trach_nhiem_va_quyen_han
+    steps:
+      - intent: trach_nhiem_va_quyen_han
+      - action: trachNhiemVaQuyenHanAction
+
+  - rule: chaohoi
+    steps:
+      - intent: chaohoi
+      - action: utter_chaohoi
+
+  - rule: tambiet
+    steps:
+      - intent: tambiet
+      - action: utter_tambiet

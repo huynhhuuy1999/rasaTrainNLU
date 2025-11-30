@@ -1,0 +1,38 @@
+version: "3.1"
+
+nlu:
+  - intent: chaohoi
+    examples: |
+      - hey
+      - hello
+      - hi
+      - chào bạn
+      - chào buổi sáng
+      - chào buổi chiều
+      - chào buổi tối
+      - xin chào
+      - chào
+
+  - intent: tambiet
+    examples: |
+      - bye
+      - tạm biệt
+      - hẹn gặp lại
+      - hẹn lần sau
+      - gặp lại sau
+
+  - intent: to_chuc_nghi_le
+    examples: |
+      - Trường có những nghi lễ nào?
+      - Các nghi lễ ở trường là gì?
+      - Nói cho tôi biết về các nghi lễ của trường
+      - Trường tổ chức những nghi lễ nào?
+
+  - intent: trach_nhiem_va_quyen_han
+    examples: |
+      - Trách nhiệm và quyền hạn của [giảng viên]{"entity":"GiangVien"} là gì?
+      - Trách nhiệm và quyền hạn của [cán bộ chiến sĩ]{"entity":"CBCS"} là gì?
+      - Trách nhiệm và quyền hạn của [giảng viên thỉnh giảng]{"entity":"GiangVienThinhGiang"} là gì?
+      - Nói cho tôi biết về trách nhiệm và quyền hạn của [giảng viên]{"entity":"GiangVien"}
+      - Nói cho tôi biết về trách nhiệm và quyền hạn của [cán bộ chiến sĩ]{"entity":"CBCS"}
+      - Nói cho tôi biết về trách nhiệm và quyền hạn của [giảng viên thỉnh giảng]{"entity":"GiangVienThinhGiang"}
