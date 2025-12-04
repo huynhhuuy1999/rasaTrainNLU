@@ -5,10 +5,26 @@ intents:
   - tambiet
   - to_chuc_nghi_le
   - trach_nhiem_va_quyen_han
+  - nguyen_tac_lam_viec
+  - tham_quyen_phe_duyet_cuoc_hop
+  - trach_nhiem_thu_truong_trong_tiep_CBCS
+  - loai_hoi_nghi_va_hop
+  - loai_chuong_trinh_cong_tac
+  - pham_vi_giai_quyet_cong_viec
+  - trinh_tu_to_chuc_cuoc_hop_hoi_nghi
+  - quy_trinh_xay_dung_chuong_trinh_cong_tac
 
 actions:
   - toChucNghiLeAction
   - trachNhiemVaQuyenHanAction
+  - nguyenTacLamViecAction
+  - thamQuyenPheDuyetCuocHopAction
+  - trachNhiemThuTruongTrongTiepCBCSAction
+  - loaiHoiNghiVaHopAction
+  - loaiChuongTrinhCongTacAction
+  - phamViGiaiQuyetCongViecAction
+  - trinhTuToChucCuocHopHoiNghiAction
+  - quyTrinhXayDungChuongTrinhCongTacAction
   - utter_chaohoi
   - utter_tambiet
 
@@ -16,6 +32,13 @@ entities:
   - GiangVien
   - CBCS
   - GiangVienThinhGiang
+  - Nam
+  - HocKy
+  - Thang
+  - Quy
+  - Tuan
+  - ThuTruong
+  - PhoThuTruong
 
 responses:
   utter_chaohoi:

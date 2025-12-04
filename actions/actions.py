@@ -93,3 +93,191 @@ class trachNhiemVaQuyenHanAction(Action):
                 dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
             drv.close()
         return []
+
+class NguyenTacLamViecAction(Action):
+
+    def name(self) -> str:
+        return "nguyenTacLamViecAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"NguyenTacLamViec\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+
+class ThamQuyenPheDuyetCuocHopAction(Action):
+
+    def name(self) -> str:
+        return "thamQuyenPheDuyetCuocHopAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"ThamQuyenPheDuyetHop\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+class TrachNhiemThuTruongTrongTiepCBCSAction(Action):
+
+    def name(self) -> str:
+        return "trachNhiemThuTruongTrongTiepCBCSAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"TrachNhiemThuTruongTrongTiepCBCS\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+class LoaiHoiNghiVaHopAction(Action):
+
+    def name(self) -> str:
+        return "loaiHoiNghiVaHopAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"LoaiHoiNghiVaHop\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+class LoaiChuongTrinhCongTacAction(Action):
+
+    def name(self) -> str:
+        return "loaiChuongTrinhCongTacAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"LoaiChuongTrinhCongTac\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+class PhamViGiaiQuyetCongViecAction(Action):
+
+    def name(self) -> str:
+        return "phamViGiaiQuyetCongViecAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            entities = tracker.latest_message['entities']
+            thuTruong = next((e['value'] for e in entities if e['entity'] == 'ThuTruong'), None)
+            phoThuTruong = next((e['value'] for e in entities if e['entity'] == 'PhoThuTruong'), None)
+            answers = None
+            entity = ""
+            if thuTruong:
+                entity = "ThuTruong"
+            elif phoThuTruong:
+                entity = "PhoThuTruong"
+            if entity:
+                result = session.run(f"MATCH (a:Answer {{entity:\"{entity}\"}})-[:BELONG_TO]->(i:Intent {{name:\"PhamViGiaiQuyetCongViec\"}}) return a.answer LIMIT 1;").data()
+                if result:
+                    answers = [record['a.answer'] for record in result]
+            if answers:
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+            drv.close()
+        return []
+class TrinhTuToChucCuocHopHoiNghiAction(Action):
+
+    def name(self) -> str:
+        return "trinhTuToChucCuocHopHoiNghiAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"TrinhTuToChucHop\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
+        return []
+class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
+
+    def name(self) -> str:
+        return "quyTrinhXayDungChuongTrinhCongTacAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            entities = tracker.latest_message['entities']
+            nam = next((e['value'] for e in entities if e['entity'] == 'Nam'), None)
+            hocKy = next((e['value'] for e in entities if e['entity'] == 'HocKy'), None)
+            thang = next((e['value'] for e in entities if e['entity'] == 'Thang'), None)
+            quy = next((e['value'] for e in entities if e['entity'] == 'Quy'), None)
+            tuan = next((e['value'] for e in entities if e['entity'] == 'Tuan'), None)
+            print('entity', nam)
+            answers = None
+            entity = ""
+            
+            if nam:
+                entity = "Nam"
+            elif hocKy:
+                entity = "HocKy"
+            elif thang:
+                entity = "Thang"
+            elif quy:
+                entity = "Quy"
+            elif tuan:
+                entity = "Tuan"
+            if entity:
+                result = session.run(f"MATCH (a:Answer {{entity:\"{entity}\"}})-[:BELONG_TO]->(i:Intent {{name:\"QuyTrinhXayDungChuongTrinhCongTac\"}}) return a.answer LIMIT 1;").data()
+                if result:
+                    answers = [record['a.answer'] for record in result]
+            if answers:
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+            drv.close()
+            
+            
+        #     result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"QuyTrinhXayDungChuongTrinhCongTac\"}) return a;").data()
+        #     if result:
+        #         answers = [record['a']['answer'] for record in result]
+        #         dispatcher.utter_message(text=', '.join(answers))
+        #     else:
+        #         dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # # drv.close()
+        return []

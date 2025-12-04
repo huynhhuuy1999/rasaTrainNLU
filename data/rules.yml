@@ -9,7 +9,38 @@ rules:
     steps:
       - intent: trach_nhiem_va_quyen_han
       - action: trachNhiemVaQuyenHanAction
-
+  - rule: nguyen_tac_lam_viec
+    steps:
+      - intent: nguyen_tac_lam_viec
+      - action: nguyenTacLamViecAction
+  - rule: tham_quyen_phe_duyet_cuoc_hop
+    steps:
+      - intent: tham_quyen_phe_duyet_cuoc_hop
+      - action: thamQuyenPheDuyetCuocHopAction
+  - rule: trach_nhiem_thu_truong_trong_tiep_CBCS
+    steps:
+      - intent: trach_nhiem_thu_truong_trong_tiep_CBCS
+      - action: trachNhiemThuTruongTrongTiepCBCSAction
+  - rule: loai_hoi_nghi_va_hop
+    steps:
+      - intent: loai_hoi_nghi_va_hop
+      - action: loaiHoiNghiVaHopAction
+  - rule: loai_chuong_trinh_cong_tac
+    steps:
+      - intent: loai_chuong_trinh_cong_tac
+      - action: loaiChuongTrinhCongTacAction
+  - rule: pham_vi_giai_quyet_cong_viec_thu_truong
+    steps:
+      - intent: pham_vi_giai_quyet_cong_viec_thu_truong
+      - action: phamViGiaiQuyetCongViecAction
+  - rule: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
+    steps:
+      - intent: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
+      - action: trinhTuToChucCuocHopHoiNghiAction
+  - rule:
+    steps:
+      - intent: quy_trinh_xay_dung_chuong_trinh_cong_tac
+      - action: quyTrinhXayDungChuongTrinhCongTacAction
   - rule: chaohoi
     steps:
       - intent: chaohoi
