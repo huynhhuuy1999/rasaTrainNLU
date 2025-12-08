@@ -200,6 +200,7 @@ class PhamViGiaiQuyetCongViecAction(Action):
             phoThuTruong = next((e['value'] for e in entities if e['entity'] == 'PhoThuTruong'), None)
             answers = None
             entity = ""
+            print('entity', entities)
             if thuTruong:
                 entity = "ThuTruong"
             elif phoThuTruong:

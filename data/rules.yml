@@ -31,7 +31,7 @@ rules:
       - action: loaiChuongTrinhCongTacAction
   - rule: pham_vi_giai_quyet_cong_viec_thu_truong
     steps:
-      - intent: pham_vi_giai_quyet_cong_viec_thu_truong
+      - intent: pham_vi_giai_quyet_cong_viec
       - action: phamViGiaiQuyetCongViecAction
   - rule: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
     steps:
