@@ -11,33 +11,6 @@ load_dotenv()
 
 
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
 
 
 class toChucNghiLeAction(Action):
@@ -49,7 +22,7 @@ class toChucNghiLeAction(Action):
             tracker: Tracker, domain: Dict[str, Any]):
         drv = get_driver()
         with drv.session() as session:
-            print("abc",tracker.latest_message)
+            print("ok ne")
             
             session = drv.session(database=NEO4J_DATABASE)
             result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"ToChucNghiLe\"}) return a;").data()

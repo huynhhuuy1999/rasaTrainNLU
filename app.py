@@ -3,7 +3,7 @@ from neo4j import GraphDatabase
 
 app = Flask(__name__)
 app.secret_key = "1234"
-driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "DBTuyenSinh"))
+driver = GraphDatabase.driver("neo4j://127.0.0.1:7687", auth=("neo4j", "123456789"), database="dbk04")
 
 def check_user(username, password):
     with driver.session() as neo4j_session:

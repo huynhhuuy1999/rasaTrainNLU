@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Rasa Socket Test</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+
+<body>
+    <input id="msg" placeholder="Nhập câu hỏi" />
+    <button onclick="send()">Send</button>
+    <pre id="log"></pre>
+
+    <script>
+        const socket = io("http://localhost:5005", {
+            path: "/socket.io/",
+            transports: ["websocket"]
+        });
+
+        socket.on("connect", () => {
+            log("✅ Connected: " + socket.id);
+        });
+
+        socket.on("bot_uttered", (data) => {
+            log("🤖 BOT: " + data.text);
+        });
+
+        socket.on("disconnect", () => {
+            log("❌ Disconnected");
+        });
+
+        function send() {
+            const text = document.getElementById("msg").value;
+            socket.emit("user_uttered", {
+                message: text,
+                session_id: socket.id
+            });
+        }
+
+        function log(msg) {
+            document.getElementById("log").textContent += msg + "\n";
+        }
+    </script>
+</body>
+
+</html>

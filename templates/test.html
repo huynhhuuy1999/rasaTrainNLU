@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Rasa Chatbot</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"></script>
+    <script>
+        WebChat.default({
+            socketUrl: "http://localhost:5005",
+            socketPath: "/socket.io/",
+            title: "Chatbot Tuyển Sinh",
+            subtitle: "Rasa OSS",
+            showMessageDate: true,
+            inputTextFieldHint: "Nhập câu hỏi...",
+            initPayload: "/chaohoi"
+        }, null);
+    </script>
+</body>
+
+</html>
