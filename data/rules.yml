@@ -45,8 +45,11 @@ rules:
     steps:
       - intent: chaohoi
       - action: utter_chaohoi
-
   - rule: tambiet
     steps:
       - intent: tambiet
       - action: utter_tambiet
+  - rule: fallback
+    steps:
+      - intent: nlu_fallback
+      - action: action_fallback_handler

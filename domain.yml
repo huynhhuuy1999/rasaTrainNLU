@@ -13,6 +13,7 @@ intents:
   - pham_vi_giai_quyet_cong_viec
   - trinh_tu_to_chuc_cuoc_hop_hoi_nghi
   - quy_trinh_xay_dung_chuong_trinh_cong_tac
+  - nlu_fallback
 
 actions:
   - toChucNghiLeAction
@@ -27,6 +28,7 @@ actions:
   - quyTrinhXayDungChuongTrinhCongTacAction
   - utter_chaohoi
   - utter_tambiet
+  - action_fallback_handler
 
 entities:
   - GiangVien

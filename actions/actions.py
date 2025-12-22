@@ -245,13 +245,17 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
             else:
                 dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
             drv.close()
-            
-            
-        #     result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"QuyTrinhXayDungChuongTrinhCongTac\"}) return a;").data()
-        #     if result:
-        #         answers = [record['a']['answer'] for record in result]
-        #         dispatcher.utter_message(text=', '.join(answers))
-        #     else:
-        #         dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
-        # # drv.close()
+        return []
+
+class ActionFallbackHandler(Action):
+    def name(self) -> Text:
+        return "action_fallback_handler"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        intent = tracker.latest_message['intent'].get('name')
+        if intent == 'nlu_fallback':
+            dispatcher.utter_message("Xin lỗi tôi không thể hiểu ý định của bạn! Bạn có thể thử hỏi lại hoặc liên hệ với bộ phận hỗ trợ để được giúp đỡ.")
+        else:
+            dispatcher.utter_message("Xin lỗi, có vẻ như tôi không thể giúp bạn với điều đó.")
         return []
