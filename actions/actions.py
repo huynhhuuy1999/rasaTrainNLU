@@ -2,7 +2,6 @@ import os
 from typing import Any, Dict, List, Text
 
 from rasa_sdk import Action, Tracker
-from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from dotenv import load_dotenv
 
@@ -245,6 +244,24 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
             else:
                 dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
             drv.close()
+        return []
+class NguyenTacToChucCuocHopAction(Action):
+
+    def name(self) -> str:
+        return "nguyenTacToChucCuocHopAction"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker, domain: Dict[str, Any]):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run("MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:\"NguyenTacToChucHop\"}) return a;").data()
+            if result:
+                answers = [record['a']['answer'] for record in result]
+                dispatcher.utter_message(text=', '.join(answers))
+            else:
+                dispatcher.utter_message(text="Xin lỗi tôi không thể trả lời câu hỏi của bạn")
+        # drv.close()
         return []
 
 class ActionFallbackHandler(Action):

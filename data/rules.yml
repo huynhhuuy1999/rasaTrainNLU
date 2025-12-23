@@ -49,6 +49,10 @@ rules:
     steps:
       - intent: tambiet
       - action: utter_tambiet
+  - rule: nguyen_tac_to_chuc_cuoc_hop
+    steps:
+      - intent: nguyen_tac_to_chuc_cuoc_hop
+      - action: nguyenTacToChucCuocHopAction
   - rule: fallback
     steps:
       - intent: nlu_fallback
