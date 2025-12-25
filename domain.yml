@@ -30,7 +30,7 @@ actions:
   - nguyenTacToChucCuocHopAction
   - utter_chaohoi
   - utter_tambiet
-  - action_fallback_handler
+  - action_phogpt_fallback
 
 entities:
   - GiangVien

@@ -4,13 +4,14 @@ from typing import Any, Dict, List, Text
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from dotenv import load_dotenv
+import requests
 
 from actions.db import get_driver
 load_dotenv()  
 
 
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
-
+GPT4ALL_API = "http://127.0.0.1:8000/chat"
 
 class toChucNghiLeAction(Action):
 
@@ -275,4 +276,37 @@ class ActionFallbackHandler(Action):
             dispatcher.utter_message("Xin lỗi tôi không thể hiểu ý định của bạn! Bạn có thể thử hỏi lại hoặc liên hệ với bộ phận hỗ trợ để được giúp đỡ.")
         else:
             dispatcher.utter_message("Xin lỗi, có vẻ như tôi không thể giúp bạn với điều đó.")
+        return []
+    
+class ActionPhoGPTFallback(Action):
+
+    def name(self) -> Text:
+        return "action_phogpt_fallback"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        user_message = tracker.latest_message.get("text")
+
+        try:
+            response = requests.post(
+                GPT4ALL_API,
+                json={"message": user_message},
+                timeout=20
+            )
+            response.raise_for_status()
+            print("PhoGPT API response:", response.json())
+            answer = response.json().get("text", "")
+            if not answer:
+                answer = "Mình chưa có đủ thông tin để trả lời câu hỏi này."
+
+        except Exception as e:
+            print("Error occurred while calling PhoGPT API", e)
+            answer = "Hệ thống AI nâng cao đang tạm thời không khả dụng."
+
+        dispatcher.utter_message(text=answer)
         return []
