@@ -2,4 +2,5 @@ rasa==3.6.16
 neo4j
 python-dotenv
 python3.9.6
+flask
 'rasa-pro[channel]'
