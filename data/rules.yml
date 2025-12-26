@@ -56,4 +56,5 @@ rules:
   - rule: fallback
     steps:
       - intent: nlu_fallback
-      - action: action_phogpt_fallback
+      # - action: action_phogpt_fallback
+      - action: action_fallback_ollama_phogpt
