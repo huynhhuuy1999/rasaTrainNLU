@@ -1,0 +1,52 @@
+version: "3.1"
+
+nlu:
+  - synonym: GiangVien
+    examples: |
+      - giảng viên
+  - synonym: CBCS
+    examples: |
+      - cán bộ chiến sĩ
+      - cán bộ, chiến sĩ
+      - cbcs
+  - synonym: GiangVienThinhGiang
+    examples: |
+      - giảng viên thỉnh giảng
+      - giảng viên t.giang
+  - synonym: ThuTruong
+    examples: |
+      - thủ trưởng
+  - synonym: PhoThuTruong
+    examples: |
+      - phó thủ trưởng
+  - regex: GiangVienThinhGiang
+    examples: |
+      - giảng viên thỉnh giảng
+  - regex: GiangVien
+    examples: |
+      - giảng viên
+  - regex: PhoThuTruong
+    examples: |
+      - phó thủ trưởng
+  - regex: ThuTruong
+    examples: |
+      - thủ trưởng
+  - intent: chaohoi
+    examples: |
+      - hey
+      - hello
+      - hi
+      - chào bạn
+      - chào buổi sáng
+      - chào buổi chiều
+      - chào buổi tối
+      - xin chào
+      - chào
+
+  - intent: tambiet
+    examples: |
+      - bye
+      - tạm biệt
+      - hẹn gặp lại
+      - hẹn lần sau
+      - gặp lại sau
