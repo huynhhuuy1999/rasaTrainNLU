@@ -19,18 +19,14 @@ nlu:
   - synonym: PhoThuTruong
     examples: |
       - phó thủ trưởng
-  - regex: GiangVienThinhGiang
+  - synonym: HieuTruong
     examples: |
-      - giảng viên thỉnh giảng
-  - regex: GiangVien
-    examples: |
-      - giảng viên
+      - hiệu trưởng
   - regex: PhoThuTruong
     examples: |
-      - phó thủ trưởng
-  - regex: ThuTruong
-    examples: |
-      - thủ trưởng
+      - phó\s+thủ\s+trưởng
+      - phó\s+thủ\s+trưởng\s+\w+
+
   - intent: chaohoi
     examples: |
       - hey

@@ -7,12 +7,14 @@ from dotenv import load_dotenv
 import requests
 
 from actions.db import get_driver
+from actions.utils import format_answer
 
 load_dotenv()
 
 
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
 GPT4ALL_API = "http://127.0.0.1:8000/chat"
+MESSAGE_FAILURE_RESPONSE = "Xin lỗi tôi không thể trả lời câu hỏi của bạn"
 
 
 class toChucNghiLeAction(Action):
@@ -25,9 +27,8 @@ class toChucNghiLeAction(Action):
     ):
         drv = get_driver()
         with drv.session() as session:
-            print("ok ne")
-
             session = drv.session(database=NEO4J_DATABASE)
+
             result = session.run(
                 'MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:"ToChucNghiLe"}) return a;'
             ).data()
@@ -35,9 +36,7 @@ class toChucNghiLeAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -80,9 +79,7 @@ class trachNhiemVaQuyenHanAction(Action):
             if answers:
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
         return []
 
@@ -105,9 +102,7 @@ class NguyenTacLamViecAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -130,17 +125,15 @@ class ThamQuyenPheDuyetCuocHopAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
 
-class TrachNhiemThuTruongTrongTiepCBCSAction(Action):
+class TrachNhiemTiepCBCSAction(Action):
 
     def name(self) -> str:
-        return "trachNhiemThuTruongTrongTiepCBCSAction"
+        return "trachNhiemTiepCBCSAction"
 
     def run(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
@@ -148,16 +141,27 @@ class TrachNhiemThuTruongTrongTiepCBCSAction(Action):
         drv = get_driver()
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:"TrachNhiemThuTruongTrongTiepCBCS"}) return a;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                dispatcher.utter_message(text=", ".join(answers))
+            entities = tracker.latest_message["entities"]
+
+            hieuTruong = next(
+                (e["entity"] for e in entities if e["entity"] == "HieuTruong"), None
+            )
+            thuTruong = next(
+                (e["entity"] for e in entities if e["entity"] == "ThuTruong"), None
+            )
+
+            if hieuTruong or thuTruong:
+                result = session.run(
+                    f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{hieuTruong or thuTruong}"}})-[:BELONG_TO]->(i:Intent {{name:"TrachNhiemTiepCBCS"}}) return a,di LIMIT 1;'
+                ).data()
+                if result:
+                    answers = [record["a"]["answer"] for record in result]
+                    law = [record["di"]["name"] for record in result]
+                    dispatcher.utter_message(text=format_answer(law, answers))
+                else:
+                    dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -180,9 +184,7 @@ class LoaiHoiNghiVaHopAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -205,9 +207,7 @@ class LoaiChuongTrinhCongTacAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -224,6 +224,7 @@ class PhamViGiaiQuyetCongViecAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
+
             thuTruong = next(
                 (e["value"] for e in entities if e["entity"] == "ThuTruong"), None
             )
@@ -232,7 +233,7 @@ class PhamViGiaiQuyetCongViecAction(Action):
             )
             answers = None
             entity = ""
-            print("entity", entities)
+
             if thuTruong:
                 entity = "ThuTruong"
             elif phoThuTruong:
@@ -246,9 +247,7 @@ class PhamViGiaiQuyetCongViecAction(Action):
             if answers:
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
         return []
 
@@ -271,9 +270,7 @@ class TrinhTuToChucCuocHopHoiNghiAction(Action):
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 
@@ -295,7 +292,7 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
             thang = next((e["value"] for e in entities if e["entity"] == "Thang"), None)
             quy = next((e["value"] for e in entities if e["entity"] == "Quy"), None)
             tuan = next((e["value"] for e in entities if e["entity"] == "Tuan"), None)
-            print("entity", nam)
+
             answers = None
             entity = ""
 
@@ -318,9 +315,7 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
             if answers:
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
         return []
 
@@ -339,13 +334,87 @@ class NguyenTacToChucCuocHopAction(Action):
             result = session.run(
                 'MATCH (a:Answer)-[:BELONG_TO]->(i:Intent {name:"NguyenTacToChucHop"}) return a;'
             ).data()
+
             if result:
                 answers = [record["a"]["answer"] for record in result]
                 dispatcher.utter_message(text=", ".join(answers))
             else:
-                dispatcher.utter_message(
-                    text="Xin lỗi tôi không thể trả lời câu hỏi của bạn"
-                )
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
+        # drv.close()
+        return []
+
+
+class CanCuXayDungChuongTrinhCongTacAction(Action):
+
+    def name(self) -> str:
+        return "canCuXayDungChuongTrinhCongTacAction"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
+    ):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run(
+                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"CanCuXayDungChuongTrinhCongTac"}) return a,di LIMIT 1;'
+            ).data()
+            if result:
+                answers = [record["a"]["answer"] for record in result]
+                law = [record["di"]["name"] for record in result]
+
+                dispatcher.utter_message(text=format_answer(law, answers))
+            else:
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
+        # drv.close()
+        return []
+
+
+class TrinhVaKyVanBanAction(Action):
+
+    def name(self) -> str:
+        return "trinhVaKyVanBanAction"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
+    ):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run(
+                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"TrinhVaKyVanBan"}) return a,di LIMIT 1;'
+            ).data()
+            if result:
+                answers = [record["a"]["answer"] for record in result]
+                law = [record["di"]["name"] for record in result]
+
+                dispatcher.utter_message(text=format_answer(law, answers))
+            else:
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
+        # drv.close()
+        return []
+
+
+class ThamQuyenDuyetVaKyVanBanAction(Action):
+
+    def name(self) -> str:
+        return "thamQuyenDuyetVaKyVanBanAction"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
+    ):
+        drv = get_driver()
+        with drv.session() as session:
+            session = drv.session(database=NEO4J_DATABASE)
+            result = session.run(
+                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"ThamQuyenDuyetVaKyVanBan"}) return a,di LIMIT 1;'
+            ).data()
+            if result:
+                answers = [record["a"]["answer"] for record in result]
+                law = [record["di"]["name"] for record in result]
+
+                dispatcher.utter_message(text=format_answer(law, answers))
+            else:
+                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
         return []
 

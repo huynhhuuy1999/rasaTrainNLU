@@ -36,12 +36,12 @@ nlu:
       - Quy định về thẩm quyền phê duyệt cuộc họp?
       - Trường có quy định gì về thẩm quyền phê duyệt cuộc họp?
       - Ai có thẩm quyền quyết định tổ chức cuộc họp?
-  - intent: trach_nhiem_thu_truong_trong_tiep_CBCS
+  - intent: TrachNhiemTiepCBCS
     examples: |
-      - Trách nhiệm thủ trưởng trong tiếp cán bộ chiến sĩ là gì?
-      - Nói cho tôi biết về trách nhiệm thủ trưởng trong tiếp cán bộ chiến sĩ
-      - Quy định về trách nhiệm thủ trưởng trong tiếp cán bộ chiến sĩ?
-      - Trường có quy định gì về trách nhiệm thủ trưởng trong tiếp cán bộ chiến sĩ?
+      - Trách nhiệm [thủ trưởng]{"entity":"ThuTruong"} trong tiếp cán bộ chiến sĩ là gì?
+      - Trách nhiệm [hiệu trưởng]{"entity":"HieuTruong"} trong tiếp cán bộ chiến sĩ là gì?
+      - Quy định về trách nhiệm [thủ trưởng]{"entity":"ThuTruong"} trong tiếp cán bộ chiến sĩ?
+      - Quy định về trách nhiệm [hiệu trưởng]{"entity":"HieuTruong"} trong tiếp cán bộ chiến sĩ?
   - intent: loai_hoi_nghi_va_hop
     examples: |
       - Các loại hội nghị, cuộc họp của trường?
@@ -86,3 +86,16 @@ nlu:
       - Nguyên tắc tổ chức hội nghị, cuộc họp là gì?
       - Cuộc họp tại Trường phải tuân theo nguyên tắc nào?
       - Việc tổ chức họp cần đảm bảo những yêu cầu gì?
+  - intent: CanCuXayDungChuongTrinhCongTac
+    examples: |
+      - Căn cứ xây dựng chương trình công tác là gì?
+      - Chương trình công tác dựa vào đâu xây dựng?
+      - Quy định về căn cứ xây dựng chương trình công tác?
+  - intent: TrinhVaKyVanBan
+    examples: |
+      - Trình và ký văn bản như thế nào?
+      - Quy định về trình và ký văn bản?
+  - intent: ThamQuyenDuyetVaKyVanBan
+    examples: |
+      - Quy định về thẩm quyền duyệt và ký văn bản như thế nào?
+      - Ai có thẩm quyền duyệt và ký văn bản?

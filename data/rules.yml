@@ -17,10 +17,10 @@ rules:
     steps:
       - intent: tham_quyen_phe_duyet_cuoc_hop
       - action: thamQuyenPheDuyetCuocHopAction
-  - rule: trach_nhiem_thu_truong_trong_tiep_CBCS
+  - rule: TrachNhiemTiepCBCS
     steps:
-      - intent: trach_nhiem_thu_truong_trong_tiep_CBCS
-      - action: trachNhiemThuTruongTrongTiepCBCSAction
+      - intent: TrachNhiemTiepCBCS
+      - action: trachNhiemTiepCBCSAction
   - rule: loai_hoi_nghi_va_hop
     steps:
       - intent: loai_hoi_nghi_va_hop
@@ -53,6 +53,18 @@ rules:
     steps:
       - intent: nguyen_tac_to_chuc_cuoc_hop
       - action: nguyenTacToChucCuocHopAction
+  - rule: CanCuXayDungChuongTrinhCongTac
+    steps:
+      - intent: CanCuXayDungChuongTrinhCongTac
+      - action: canCuXayDungChuongTrinhCongTacAction
+  - rule: TrinhVaKyVanBan
+    steps:
+      - intent: TrinhVaKyVanBan
+      - action: trinhVaKyVanBanAction
+  - rule: ThamQuyenDuyetVaKyVanBan
+    steps:
+      - intent: ThamQuyenDuyetVaKyVanBan
+      - action: thamQuyenDuyetVaKyVanBanAction
   - rule: fallback
     steps:
       - intent: nlu_fallback
