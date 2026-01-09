@@ -65,8 +65,16 @@ rules:
     steps:
       - intent: ThamQuyenDuyetVaKyVanBan
       - action: thamQuyenDuyetVaKyVanBanAction
+  - rule: HoiVeDieu
+    steps:
+      - intent: HoiVeDieu
+      - action: hoiVeDieuAction
   - rule: fallback
     steps:
       - intent: nlu_fallback
       # - action: action_phogpt_fallback
+      - action: action_fallback_ollama_phogpt
+  - rule: OutOfScope
+    steps:
+      - intent: out_out_scope
       - action: action_fallback_ollama_phogpt

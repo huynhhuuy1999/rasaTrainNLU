@@ -22,10 +22,22 @@ nlu:
   - synonym: HieuTruong
     examples: |
       - hiệu trưởng
+  - synonym: Quy chế làm việc của trường
+    examples: |
+      - Quy chế làm việc của trường
+      - Quy định làm việc của trường
+      - quy chế lam viec
+      - Quy chế làm việc
+      - quy chế làm việc của trường là
+      - quy chế làm việc cảu trường
+      - quy địnhh làmm việc của trường
   - regex: PhoThuTruong
     examples: |
       - phó\s+thủ\s+trưởng
       - phó\s+thủ\s+trưởng\s+\w+
+  - regex: article_number
+    examples: |
+      - \d+
 
   - intent: chaohoi
     examples: |
@@ -46,3 +58,10 @@ nlu:
       - hẹn gặp lại
       - hẹn lần sau
       - gặp lại sau
+  - intent: out_out_scope
+    examples: |
+      - Việt Nam có những loài hoa nào?
+      - Thủ đô của Việt Nam là gì?
+      - Ai là người sáng lập ra Facebook?
+      - Mặt trời mọc từ hướng nào?
+      - Hôm nay là thứ mấy?

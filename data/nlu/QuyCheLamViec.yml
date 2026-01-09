@@ -5,7 +5,6 @@ nlu:
     examples: |
       - Trường có những nghi lễ nào?
       - Các nghi lễ ở trường là gì?
-      - Nói cho tôi biết về các nghi lễ của trường
       - Trường tổ chức những nghi lễ nào?
 
   - intent: trach_nhiem_va_quyen_han
@@ -28,7 +27,7 @@ nlu:
       - Nguyên tắc làm việc của trường là gì?
       - Trường có nguyên tắc làm việc nào?
       - Quy định về nguyên tắc làm việc?
-      - Nói cho tôi biết về nguyên tắc làm việc của trường
+      - Cơ chế và nguyên tắc làm việc của trường?
   - intent: tham_quyen_phe_duyet_cuoc_hop
     examples: |
       - Thẩm quyền phê duyệt cuộc họp như thế nào?
@@ -45,7 +44,6 @@ nlu:
   - intent: loai_hoi_nghi_va_hop
     examples: |
       - Các loại hội nghị, cuộc họp của trường?
-      - Nói cho tôi biết về các loại hội nghị và họp của trường
       - Trường có những loại hội nghị và cuộc họp nào?
       - Ai được quyền tổ chức các cuộc họp trong Trường?
   - intent: loai_chuong_trinh_cong_tac
@@ -99,3 +97,10 @@ nlu:
     examples: |
       - Quy định về thẩm quyền duyệt và ký văn bản như thế nào?
       - Ai có thẩm quyền duyệt và ký văn bản?
+  - intent: HoiVeDieu
+    examples: |
+      - Nội dung Điều [13](article_number) của [Quy chế làm việc của trường](document_name)
+      - Điều [45](article_number) trong [Quy định làm việc của trường](document_name) quy định gì?
+      - Cho tôi biết Điều [10](article_number) của [Quy định làm việc của trường](document_name)
+      - Điều [13](article_number) của [Quy chế làm việc](document_name) nói gì?
+      - Nội dung điều [100](article_number) trong [quy chế lam viec](document_name)
