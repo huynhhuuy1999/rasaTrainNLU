@@ -1,0 +1,25 @@
+version: "3.1"
+
+nlu:
+  - intent: TieuChuanChucDanhGiangDay
+    examples: |
+      - Tiêu chuẩn chung của các chức danh giảng dạy??
+      - Một giảng viên cần có trình độ tối thiểu như thế nào để được tuyển dụng?
+      - Một giảng viên mới có bắt buộc phải có chứng chỉ nghiệp vụ sư phạm không?
+      - Giảng viên có bắt buộc phải có chứng chỉ ngoại ngữ theo chuẩn không?
+  - intent: ThamQuyenBoNhiemBaiNhiemChucDanhGiangDay
+    examples: |
+      - Ai có thẩm quyền bổ nhiệm, bãi nhiệm chức danh giảng dạy?
+      - Thẩm quyền bổ nhiệm chức danh giảng dạy thuộc về ai?
+      - Quy định về thẩm quyền bổ nhiệm, bãi nhiệm chức danh giảng dạy?
+  - intent: NguyenTacBoNhiemBaiNhiemChucNangGiangDay
+    examples: |
+      - Nguyên tắc bổ nhiệm, bãi nhiệm chức danh giảng dạy?
+      - Quy định về nguyên tắc bổ nhiệm, bãi nhiệm chức danh giảng dạy?
+      - Trường có quy định gì về nguyên tắc bổ nhiệm, bãi nhiệm chức danh giảng dạy?
+      - Nguyên tắc bổ nhiệm chức danh giảng dạy?
+  - intent: HoSoThuTucMienNhiemBaiNhiemChucDanhGiangDay
+    examples: |
+      - Hồ sơ, thủ tục miễn nhiệm, bãi nhiệm chức danh giảng dạy?
+      - Thủ tục miễn nhiệm chức danh giảng dạy?
+      - Hồ sơ miễn nhiệm chức danh giảng dạy gồm những gì?

@@ -15,6 +15,7 @@ load_dotenv()
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
 GPT4ALL_API = "http://127.0.0.1:8000/chat"
 MESSAGE_FAILURE_RESPONSE = "Xin lỗi tôi không thể trả lời câu hỏi của bạn"
+OLLAMA_URL = "http://localhost:11434/api/generate"
 
 
 class toChucNghiLeAction(Action):
@@ -620,7 +621,7 @@ class ActionAskOllamaPhoGPT(Action):
         print("tracker", tracker.latest_message)
 
         # 2. Cấu hình API endpoint của Ollama
-        ollama_url = "http://localhost:11434/api/generate"
+        ollama_url = OLLAMA_URL
 
         # 3. Tạo payload
         # Lưu ý: stream=False để Rasa đợi lấy toàn bộ câu trả lời rồi mới hiển thị

@@ -17,6 +17,10 @@ intents:
   - CanCuXayDungChuongTrinhCongTac
   - TrinhVaKyVanBan
   - ThamQuyenDuyetVaKyVanBan
+  - TieuChuanChucDanhGiangDay
+  - ThamQuyenBoNhiemBaiNhiemChucDanhGiangDay
+  - NguyenTacBoNhiemBaiNhiemChucNangGiangDay
+  - HoSoThuTucMienNhiemBaiNhiemCh
   - HoiVeDieu
   - nlu_fallback
 
@@ -35,6 +39,7 @@ actions:
   - canCuXayDungChuongTrinhCongTacAction
   - trinhVaKyVanBanAction
   - thamQuyenDuyetVaKyVanBanAction
+  - customActionBase
   - hoiVeDieuAction
   - utter_chaohoi
   - utter_tambiet

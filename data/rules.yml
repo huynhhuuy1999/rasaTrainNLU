@@ -65,6 +65,22 @@ rules:
     steps:
       - intent: ThamQuyenDuyetVaKyVanBan
       - action: thamQuyenDuyetVaKyVanBanAction
+  - rule: TieuChuanChucDanhGiangDay
+    steps:
+      - intent: TieuChuanChucDanhGiangDay
+      - action: customActionBase
+  - rule: ThamQuyenBoNhiemBaiNhiemChucDanhGiangDay
+    steps:
+      - intent: ThamQuyenBoNhiemBaiNhiemChucDanhGiangDay
+      - action: customActionBase
+  - rule: NguyenTacBoNhiemBaiNhiemChucNangGiangDay
+    steps:
+      - intent: NguyenTacBoNhiemBaiNhiemChucNangGiangDay
+      - action: customActionBase
+  - rule: HoSoThuTucMienNhiemBaiNhiemChucDanhGiangDay
+    steps:
+      - intent: HoSoThuTucMienNhiemBaiNhiemChucDanhGiangDay
+      - action: customActionBase
   - rule: HoiVeDieu
     steps:
       - intent: HoiVeDieu
