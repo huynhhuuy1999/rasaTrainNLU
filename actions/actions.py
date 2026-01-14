@@ -77,12 +77,21 @@ class trachNhiemVaQuyenHanAction(Action):
                 entity = "GiangVienThinhGiang"
             if entity:
                 result = session.run(
-                    f'MATCH (a:Answer {{entity:"{entity}"}})-[:BELONG_TO]->(i:Intent {{name:"TrachNhiemVaQuyenHan"}}) return a.answer LIMIT 1;'
+                    f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{entity}"}})-[:BELONG_TO]->(i:Intent {{name:"TrachNhiemVaQuyenHan"}})<-[:HAS_INTENT]-(do:DOCUMENT)'
+                    f" return a,do,di LIMIT 1;"
                 ).data()
                 if result:
-                    answers = [record["a.answer"] for record in result]
+                    answers = [record["a"]["answer"] for record in result]
+                    law = [
+                        {
+                            "name": record["di"]["name"],
+                            "content": record["di"]["content"],
+                        }
+                        for record in result
+                    ]
+                    documents = [record["do"]["text"] for record in result]
             if answers:
-                dispatcher.utter_message(text=", ".join(answers))
+                dispatcher.utter_message(text=format_answer(law, answers, documents))
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
@@ -275,12 +284,20 @@ class PhamViGiaiQuyetCongViecAction(Action):
                 entity = "PhoThuTruong"
             if entity:
                 result = session.run(
-                    f'MATCH (a:Answer {{entity:"{entity}"}})-[:BELONG_TO]->(i:Intent {{name:"PhamViGiaiQuyetCongViec"}}) return a.answer LIMIT 1;'
+                    f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{entity}"}})-[:BELONG_TO]->(i:Intent {{name:"PhamViGiaiQuyetCongViec"}})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
                 ).data()
                 if result:
-                    answers = [record["a.answer"] for record in result]
+                    answers = [record["a"]["answer"] for record in result]
+                    law = [
+                        {
+                            "name": record["di"]["name"],
+                            "content": record["di"]["content"],
+                        }
+                        for record in result
+                    ]
+                    documents = [record["do"]["text"] for record in result]
             if answers:
-                dispatcher.utter_message(text=", ".join(answers))
+                dispatcher.utter_message(text=format_answer(law, answers, documents))
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
@@ -599,6 +616,8 @@ class ActionAskOllamaPhoGPT(Action):
 
         # 1. Lấy tin nhắn người dùng
         user_message = tracker.latest_message.get("text")
+
+        print("tracker", tracker.latest_message)
 
         # 2. Cấu hình API endpoint của Ollama
         ollama_url = "http://localhost:11434/api/generate"
