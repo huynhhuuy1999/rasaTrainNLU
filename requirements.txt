@@ -3,4 +3,5 @@ neo4j
 python-dotenv
 python3.9.6
 flask
+autocorrect==2.6.1
 'rasa-pro[channel]'

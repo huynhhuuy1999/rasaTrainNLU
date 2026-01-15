@@ -200,7 +200,6 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
                 ).data()
 
                 if result:
-                    # answers = [record["a.answer"] for record in result]
                     answers = [record["a"]["answer"] for record in result]
                     law = [
                         {
@@ -233,23 +232,30 @@ class hoiVeDieuAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
-            print("entities", entities)
+
             article_number = next(
                 (e["value"] for e in entities if e["entity"] == "article_number"), None
             )
             document_name = next(
                 (e["value"] for e in entities if e["entity"] == "document_name"), None
             )
-            print("article_number", article_number)
-            print("document_name", document_name)
+
             if article_number and document_name:
+                listDoc = session.run(
+                    f"MATCH (do:DOCUMENT)"
+                    f' WITH do, apoc.text.levenshteinSimilarity(do.name, "{document_name}") AS similarity '
+                    f"ORDER BY similarity DESC LIMIT 1 "
+                    f"RETURN do.name AS name;"
+                ).data()
+
+                if len(listDoc) > 0:
+                    document_name = listDoc[0]["name"]
                 result = session.run(
                     f'MATCH (di:DIEU {{name:"Điều {article_number}"}})-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent)<-[:HAS_INTENT]-(do:DOCUMENT)'
-                    f' WHERE do.text="{document_name}" ORDER BY a.khoan ASC '
+                    f' WHERE do.name="{document_name}" ORDER BY a.khoan ASC '
                     f"RETURN a,di,do;"
                 ).data()
                 if result:
-
                     answers = [record["a"]["answer"] for record in result]
                     law = [
                         {
