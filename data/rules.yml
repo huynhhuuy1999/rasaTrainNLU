@@ -1,42 +1,42 @@
 version: "3.1"
 
 rules:
-  - rule: to_chuc_nghi_le
+  - rule: ToChucNghiLe
     steps:
-      - intent: to_chuc_nghi_le
-      - action: toChucNghiLeAction
+      - intent: ToChucNghiLe
+      - action: customActionBase
   - rule: trach_nhiem_va_quyen_han
     steps:
       - intent: trach_nhiem_va_quyen_han
       - action: trachNhiemVaQuyenHanAction
-  - rule: nguyen_tac_lam_viec
+  - rule: NguyenTacLamViec
     steps:
-      - intent: nguyen_tac_lam_viec
-      - action: nguyenTacLamViecAction
-  - rule: tham_quyen_phe_duyet_cuoc_hop
+      - intent: NguyenTacLamViec
+      - action: customActionBase
+  - rule: ThamQuyenPheDuyetHop
     steps:
-      - intent: tham_quyen_phe_duyet_cuoc_hop
-      - action: thamQuyenPheDuyetCuocHopAction
+      - intent: ThamQuyenPheDuyetHop
+      - action: customActionBase
   - rule: TrachNhiemTiepCBCS
     steps:
       - intent: TrachNhiemTiepCBCS
       - action: trachNhiemTiepCBCSAction
-  - rule: loai_hoi_nghi_va_hop
+  - rule: LoaiHoiNghiVaHop
     steps:
-      - intent: loai_hoi_nghi_va_hop
-      - action: loaiHoiNghiVaHopAction
-  - rule: loai_chuong_trinh_cong_tac
+      - intent: LoaiHoiNghiVaHop
+      - action: customActionBase
+  - rule: LoaiChuongTrinhCongTac
     steps:
-      - intent: loai_chuong_trinh_cong_tac
-      - action: loaiChuongTrinhCongTacAction
+      - intent: LoaiChuongTrinhCongTac
+      - action: customActionBase
   - rule: pham_vi_giai_quyet_cong_viec_thu_truong
     steps:
       - intent: pham_vi_giai_quyet_cong_viec
       - action: phamViGiaiQuyetCongViecAction
-  - rule: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
+  - rule: TrinhTuToChucHop
     steps:
-      - intent: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
-      - action: trinhTuToChucCuocHopHoiNghiAction
+      - intent: TrinhTuToChucHop
+      - action: customActionBase
   - rule:
     steps:
       - intent: quy_trinh_xay_dung_chuong_trinh_cong_tac
@@ -49,22 +49,22 @@ rules:
     steps:
       - intent: tambiet
       - action: utter_tambiet
-  - rule: nguyen_tac_to_chuc_cuoc_hop
+  - rule: NguyenTacToChucHop
     steps:
-      - intent: nguyen_tac_to_chuc_cuoc_hop
-      - action: nguyenTacToChucCuocHopAction
+      - intent: NguyenTacToChucHop
+      - action: customActionBase
   - rule: CanCuXayDungChuongTrinhCongTac
     steps:
       - intent: CanCuXayDungChuongTrinhCongTac
-      - action: canCuXayDungChuongTrinhCongTacAction
+      - action: customActionBase
   - rule: TrinhVaKyVanBan
     steps:
       - intent: TrinhVaKyVanBan
-      - action: trinhVaKyVanBanAction
+      - action: customActionBase
   - rule: ThamQuyenDuyetVaKyVanBan
     steps:
       - intent: ThamQuyenDuyetVaKyVanBan
-      - action: thamQuyenDuyetVaKyVanBanAction
+      - action: customActionBase
   - rule: TieuChuanChucDanhGiangDay
     steps:
       - intent: TieuChuanChucDanhGiangDay

@@ -18,35 +18,6 @@ MESSAGE_FAILURE_RESPONSE = "Xin lỗi tôi không thể trả lời câu hỏi c
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 
-class toChucNghiLeAction(Action):
-
-    def name(self) -> str:
-        return "toChucNghiLeAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"ToChucNghiLe"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
 class trachNhiemVaQuyenHanAction(Action):
 
     def name(self) -> str:
@@ -99,63 +70,6 @@ class trachNhiemVaQuyenHanAction(Action):
         return []
 
 
-class NguyenTacLamViecAction(Action):
-
-    def name(self) -> str:
-        return "nguyenTacLamViecAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            a = tracker.latest_message["intent"]
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"NguyenTacLamViec"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class ThamQuyenPheDuyetCuocHopAction(Action):
-
-    def name(self) -> str:
-        return "thamQuyenPheDuyetCuocHopAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"ThamQuyenPheDuyetHop"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
 class TrachNhiemTiepCBCSAction(Action):
 
     def name(self) -> str:
@@ -195,62 +109,6 @@ class TrachNhiemTiepCBCSAction(Action):
                     )
                 else:
                     dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class LoaiHoiNghiVaHopAction(Action):
-
-    def name(self) -> str:
-        return "loaiHoiNghiVaHopAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"LoaiHoiNghiVaHop"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class LoaiChuongTrinhCongTacAction(Action):
-
-    def name(self) -> str:
-        return "loaiChuongTrinhCongTacAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"LoaiChuongTrinhCongTac"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
@@ -302,34 +160,6 @@ class PhamViGiaiQuyetCongViecAction(Action):
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
-        return []
-
-
-class TrinhTuToChucCuocHopHoiNghiAction(Action):
-
-    def name(self) -> str:
-        return "trinhTuToChucCuocHopHoiNghiAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"TrinhTuToChucHop"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
         return []
 
 
@@ -391,119 +221,6 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
         return []
 
 
-class NguyenTacToChucCuocHopAction(Action):
-
-    def name(self) -> str:
-        return "nguyenTacToChucCuocHopAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"NguyenTacToChucHop"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class CanCuXayDungChuongTrinhCongTacAction(Action):
-
-    def name(self) -> str:
-        return "canCuXayDungChuongTrinhCongTacAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"CanCuXayDungChuongTrinhCongTac"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class TrinhVaKyVanBanAction(Action):
-
-    def name(self) -> str:
-        return "trinhVaKyVanBanAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"TrinhVaKyVanBan"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
-class ThamQuyenDuyetVaKyVanBanAction(Action):
-
-    def name(self) -> str:
-        return "thamQuyenDuyetVaKyVanBanAction"
-
-    def run(
-        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
-    ):
-        drv = get_driver()
-        with drv.session() as session:
-            session = drv.session(database=NEO4J_DATABASE)
-            result = session.run(
-                'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent {name:"ThamQuyenDuyetVaKyVanBan"})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
-            ).data()
-            if result:
-                answers = [record["a"]["answer"] for record in result]
-                law = [
-                    {"name": record["di"]["name"], "content": record["di"]["content"]}
-                    for record in result
-                ]
-                documents = [record["do"]["text"] for record in result]
-                dispatcher.utter_message(text=format_answer(law, answers, documents))
-            else:
-                dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-        # drv.close()
-        return []
-
-
 class hoiVeDieuAction(Action):
 
     def name(self) -> str:
@@ -516,13 +233,15 @@ class hoiVeDieuAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
+            print("entities", entities)
             article_number = next(
                 (e["value"] for e in entities if e["entity"] == "article_number"), None
             )
             document_name = next(
                 (e["value"] for e in entities if e["entity"] == "document_name"), None
             )
-
+            print("article_number", article_number)
+            print("document_name", document_name)
             if article_number and document_name:
                 result = session.run(
                     f'MATCH (di:DIEU {{name:"Điều {article_number}"}})-[:HAS_DIEU]->(a:Answer)-[:BELONG_TO]->(i:Intent)<-[:HAS_INTENT]-(do:DOCUMENT)'

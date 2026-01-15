@@ -1,11 +1,8 @@
 import os
 from typing import Any, Dict, List, Text
-
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from dotenv import load_dotenv
-import requests
-
 from actions.db import get_driver
 from actions.utils import format_answer
 

@@ -1,7 +1,7 @@
 version: "3.1"
 
 nlu:
-  - intent: to_chuc_nghi_le
+  - intent: ToChucNghiLe
     examples: |
       - Trường có những nghi lễ nào?
       - Các nghi lễ ở trường là gì?
@@ -22,13 +22,13 @@ nlu:
       - Trách nhiệm và quyền hạn của [cán bộ chiến sĩ]{"entity":"CBCS"} là gì?
       - Nói cho tôi biết về trách nhiệm và quyền hạn của [cán bộ chiến sĩ]{"entity":"CBCS"}
       - Trách nhiệm của [giảng viên]{"entity":"GiangVien"}, không phải giảng viên thỉnh giảng là gì?
-  - intent: nguyen_tac_lam_viec
+  - intent: NguyenTacLamViec
     examples: |
       - Nguyên tắc làm việc của trường là gì?
       - Trường có nguyên tắc làm việc nào?
       - Quy định về nguyên tắc làm việc?
       - Cơ chế và nguyên tắc làm việc của trường?
-  - intent: tham_quyen_phe_duyet_cuoc_hop
+  - intent: ThamQuyenPheDuyetHop
     examples: |
       - Thẩm quyền phê duyệt cuộc họp như thế nào?
       - Nói cho tôi biết về thẩm quyền phê duyệt cuộc họp của trường
@@ -41,12 +41,12 @@ nlu:
       - Trách nhiệm [hiệu trưởng]{"entity":"HieuTruong"} trong tiếp cán bộ chiến sĩ là gì?
       - Quy định về trách nhiệm [thủ trưởng]{"entity":"ThuTruong"} trong tiếp cán bộ chiến sĩ?
       - Quy định về trách nhiệm [hiệu trưởng]{"entity":"HieuTruong"} trong tiếp cán bộ chiến sĩ?
-  - intent: loai_hoi_nghi_va_hop
+  - intent: LoaiHoiNghiVaHop
     examples: |
       - Các loại hội nghị, cuộc họp của trường?
       - Trường có những loại hội nghị và cuộc họp nào?
       - Ai được quyền tổ chức các cuộc họp trong Trường?
-  - intent: loai_chuong_trinh_cong_tac
+  - intent: LoaiChuongTrinhCongTac
     examples: |
       - Các loại chương trình công tác của trường?
       - Có những loại chương trình công tác nào?
@@ -62,7 +62,7 @@ nlu:
       - [Phó thủ trưởng]{"entity":"PhoThuTruong"} đơn vị trường có phạm vi giải quyết công việc như thế nào?
       - [Phó thủ trưởng]{"entity":"PhoThuTruong"} chịu trách nhiệm trước ai?
       - [Phó thủ trưởng]{"entity":"PhoThuTruong"} giúp việc cho Thủ trưởng như thế nào?
-  - intent: trinh_tu_to_chuc_cuoc_hop_hoi_nghi
+  - intent: TrinhTuToChucHop
     examples: |
       - Trình tự tổ chức cuộc họp, hội nghị của trường?
       - Trình tự tổ chức cuộc họp của trường?
@@ -79,7 +79,7 @@ nlu:
       - Quy trình xây dựng chương trình công tác [quý]{"entity":"Quy"} như thế nào?
       - Trình tự xây dựng chương trình công tác [quý]{"entity":"Quy"}?
       - Quy trình xây dựng chương trình công tác [tuần]{"entity":"Tuan"} như thế nào?
-  - intent: nguyen_tac_to_chuc_cuoc_hop
+  - intent: NguyenTacToChucHop
     examples: |
       - Nguyên tắc tổ chức hội nghị, cuộc họp là gì?
       - Cuộc họp tại Trường phải tuân theo nguyên tắc nào?
@@ -99,8 +99,11 @@ nlu:
       - Ai có thẩm quyền duyệt và ký văn bản?
   - intent: HoiVeDieu
     examples: |
-      - Nội dung Điều [13](article_number) của [Quy chế làm việc của trường](document_name)
-      - Điều [45](article_number) trong [Quy định làm việc của trường](document_name) quy định gì?
-      - Cho tôi biết Điều [10](article_number) của [Quy định làm việc của trường](document_name)
-      - Điều [13](article_number) của [Quy chế làm việc](document_name) nói gì?
-      - Nội dung điều [100](article_number) trong [quy chế lam viec](document_name)
+      - Nội dung Điều [13](article_number) của [quy chế làm việc của trường](document_name)
+      - Điều [45](article_number) trong [quy định làm việc của trường](document_name) quy định gì?
+      - Cho tôi biết Điều [10](article_number) của [quy định làm việc của trường](document_name)
+      - Điều [13](article_number) của [quy chế làm việc](document_name) nói gì?
+      - Nội dung điều [100](article_number) trong [thông tư 17](document_name)
+      - Điều [25](article_number) của [thông tư số 17](document_name) quy định gì?
+      - Nội dung của điều [7](article_number) trong [quy định về bổ nhiệm, bãi nhiệm, miễn nhiệm các chức danh giảng dạy trong CAND](document_name)
+      - Nội dung điều [15](article_number) trong [TT số 17](document_name)
