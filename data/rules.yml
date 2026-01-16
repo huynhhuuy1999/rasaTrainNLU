@@ -5,9 +5,21 @@ rules:
     steps:
       - intent: ToChucNghiLe
       - action: customActionBase
-  - rule: trach_nhiem_va_quyen_han
+  # - rule: trach_nhiem_va_quyen_han
+  #   steps:
+  #     - intent: trach_nhiem_va_quyen_han
+  #     - action: trachNhiemVaQuyenHanAction
+  - rule: Kích hoạt form trách nhiệm
     steps:
       - intent: trach_nhiem_va_quyen_han
+      - action: trach_nhiem_quyen_han_form
+      - active_loop: trach_nhiem_quyen_han_form
+  - rule: Hoàn tất form trách nhiệm và quyền hạn
+    condition:
+      - active_loop: trach_nhiem_quyen_han_form
+    steps:
+      - action: trach_nhiem_quyen_han_form
+      - active_loop: null
       - action: trachNhiemVaQuyenHanAction
   - rule: NguyenTacLamViec
     steps:

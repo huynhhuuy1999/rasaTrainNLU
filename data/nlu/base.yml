@@ -58,6 +58,16 @@ nlu:
     examples: |
       - phó\s+thủ\s+trưởng
       - phó\s+thủ\s+trưởng\s+\w+
+  - regex: GiangVienThinhGiang
+    examples: |
+      - (?i)giảng\s*viên\s*thỉnh\s*giảng
+      - (?i)gv\s*thỉnh\s*giảng
+      - (?i)giang\s*vien\s*thinh\s*giang
+  - regex: CBCS
+    examples: |
+      - (?i)\bcbcs\b
+      - (?i)cán\s*bộ\s*,?\s*chiến\s*sĩ
+      - (?i)can\s*bo\s*,?\s*chien\s*si
   - regex: article_number
     examples: |
       - \d+

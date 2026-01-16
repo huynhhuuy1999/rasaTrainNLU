@@ -8,6 +8,8 @@ import requests
 
 from actions.db import get_driver
 from actions.utils import format_answer
+from rasa_sdk.events import SlotSet
+
 
 load_dotenv()
 
@@ -30,6 +32,10 @@ class trachNhiemVaQuyenHanAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
+            doi_tuong = tracker.get_slot("doi_tuong")
+            print("doi_tuong", doi_tuong)
+            # print("entities", tracker.latest_message["entities"])
+
             giangVien = next(
                 (e["value"] for e in entities if e["entity"] == "GiangVien"), None
             )
@@ -67,7 +73,7 @@ class trachNhiemVaQuyenHanAction(Action):
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
-        return []
+        return [SlotSet("doi_tuong", None)]
 
 
 class TrachNhiemTiepCBCSAction(Action):

@@ -5,6 +5,7 @@ intents:
   - tambiet
   - ToChucNghiLe
   - trach_nhiem_va_quyen_han
+  - inform
   - NguyenTacLamViec
   - ThamQuyenPheDuyetHop
   - TrachNhiemTiepCBCS
@@ -51,12 +52,34 @@ entities:
   - article_number
   - document_name
 
+slots:
+  doi_tuong:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: GiangVien
+      - type: from_entity
+        entity: GiangVienThinhGiang
+      - type: from_entity
+        entity: CBCS
+      - type: from_text
+        intent: inform
+
+forms:
+  trach_nhiem_quyen_han_form:
+    required_slots:
+      - doi_tuong
+    # submit:
+    #   - action: trachNhiemVaQuyenHanAction
+
 responses:
   utter_chaohoi:
     - text: "chào bạn!"
-
   utter_tambiet:
     - text: "tạm biệt"
+  utter_ask_doi_tuong:
+    - text: "Bạn muốn biết trách nhiệm và quyền hạn của đối tượng nào (Giảng viên, Giảng viên thỉnh giảng hay Cán bộ chiến sĩ)?"
 
 session_config:
   session_expiration_time: 60
