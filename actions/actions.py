@@ -3,6 +3,8 @@ from typing import Any, Dict, List, Text
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SessionStarted, ActionExecuted
+
 from dotenv import load_dotenv
 import requests
 
@@ -34,7 +36,6 @@ class trachNhiemVaQuyenHanAction(Action):
             entities = tracker.latest_message["entities"]
             doi_tuong = tracker.get_slot("doi_tuong")
             print("doi_tuong", doi_tuong)
-            # print("entities", tracker.latest_message["entities"])
 
             giangVien = next(
                 (e["value"] for e in entities if e["entity"] == "GiangVien"), None
@@ -88,7 +89,8 @@ class TrachNhiemTiepCBCSAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
-
+            doi_tuong = tracker.get_slot("doi_tuong_tiep_CSCS")
+            print("doi_tuong", doi_tuong)
             hieuTruong = next(
                 (e["entity"] for e in entities if e["entity"] == "HieuTruong"), None
             )
@@ -100,6 +102,7 @@ class TrachNhiemTiepCBCSAction(Action):
                 result = session.run(
                     f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{hieuTruong or thuTruong}"}})-[:BELONG_TO]->(i:Intent {{name:"TrachNhiemTiepCBCS"}})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
                 ).data()
+
                 if result:
                     answers = [record["a"]["answer"] for record in result]
                     documents = [record["do"]["text"] for record in result]
@@ -118,7 +121,7 @@ class TrachNhiemTiepCBCSAction(Action):
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
         # drv.close()
-        return []
+        return [SlotSet("doi_tuong_tiep_CSCS", None)]
 
 
 class PhamViGiaiQuyetCongViecAction(Action):
@@ -133,7 +136,8 @@ class PhamViGiaiQuyetCongViecAction(Action):
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
-
+            doi_tuong = tracker.get_slot("doi_tuong")
+            print("doi_tuong", doi_tuong)
             thuTruong = next(
                 (e["value"] for e in entities if e["entity"] == "ThuTruong"), None
             )
@@ -166,7 +170,7 @@ class PhamViGiaiQuyetCongViecAction(Action):
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             drv.close()
-        return []
+        return [SlotSet("doi_tuong", None)]
 
 
 class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
