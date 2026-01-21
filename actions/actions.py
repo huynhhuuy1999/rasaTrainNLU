@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import requests
 
 from actions.db import get_driver
-from actions.utils import format_answer
+from actions.utils import format_answer, MESSAGE_FAILURE_RESPONSE
 from rasa_sdk.events import SlotSet
 
 
@@ -17,7 +17,6 @@ load_dotenv()
 
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
 GPT4ALL_API = "http://127.0.0.1:8000/chat"
-MESSAGE_FAILURE_RESPONSE = "Xin lỗi tôi không thể trả lời câu hỏi của bạn"
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 

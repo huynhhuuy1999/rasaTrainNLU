@@ -1,3 +1,6 @@
+MESSAGE_FAILURE_RESPONSE = "Xin lỗi tôi không thể trả lời câu hỏi của bạn"
+
+
 def format_answer(law, answers, document, khoan=None):
     try:
         # check answers hợp lệ

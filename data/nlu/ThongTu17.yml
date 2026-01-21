@@ -34,3 +34,21 @@ nlu:
       - Thời điểm xét [bổ nhiệm](actionTT17) chức danh giảng dạy
       - Khi nào [bãi nhiệm](actionTT17) chức danh giảng dạy?
       - [miễn nhiệm](actionTT17) chức danh giảng dạy vào thời điểm nào?
+  - intent: HoiVeNhiemVuChucDanhGiangDay
+    examples: |
+      - [Giảng viên](GiangVien) có nhiệm vụ gì?
+      - Nhiệm vụ của [trợ giảng](chucDanh) là gì?
+      - các nhiệm vụ của [giảng viên chính](chucDanh) là gì?
+      - tiêu chuẩn của [giảng viên](GiangVien)?
+      - yêu cầu năng lực của [trợ giảng](chucDanh)?
+      - [giảng viên chính](chucDanh) cần có tiêu chuẩn như thế nào?
+  - intent: HoiVeHoiDong
+    examples: |
+      - Quy định về hội đồng [cấp trường](capBac)
+      - hội đòng [cấp bộ](capBac) quy định thế nào?
+      - Những quy định về hội đồng [cấp bộ](capBac)?
+  - intent: QuyTrinhBoNhiemChucDanh
+    examples: |
+      - Quy trình bổ nhiệm chức danh [giáo viên](chucDanh)
+      - [Giáo viên cao cấp](chucDanh) có quy trình bổ nhiệm thế nào?
+      - Những quy định về bổ nhiệm [trợ giảng](chucDanh)

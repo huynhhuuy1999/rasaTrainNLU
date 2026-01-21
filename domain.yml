@@ -24,6 +24,9 @@ intents:
   - HoSoThuTucMienNhiemBaiNhiemCh
   - CacTruongHopBoNhiemBaiNhiemChucDanhGiangDay
   - ThoiDiemXetBoNhiemBaiNhiemChucDanhGiangDay
+  - HoiVeNhiemVuChucDanhGiangDay
+  - HoiVeHoiDong
+  - QuyTrinhBoNhiemChucDanh
   - HoiVeDieu
   - nlu_fallback
 
@@ -32,9 +35,8 @@ actions:
   - trachNhiemTiepCBCSAction
   - phamViGiaiQuyetCongViecAction
   - quyTrinhXayDungChuongTrinhCongTacAction
-  - cacTruongHopBoNhiemBaiNhiemChucDanhGiangDayAction
-  - thoiDiemXetBoNhiemBaiNhiemChucDanhGiangDayAction
   - customActionBase
+  - actionBaseWithEntityForm
   - hoiVeDieuAction
   - utter_chaohoi
   - utter_tambiet
@@ -52,8 +54,30 @@ entities:
   - document_name
   - time
   - actionTT17
+  - chucDanh
+  - capBac
 
 slots:
+  originalIntent:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_intent
+        value: CacTruongHopBoNhiemBaiNhiemChucDanhGiangDay
+        intent: CacTruongHopBoNhiemBaiNhiemChucDanhGiangDay
+      - type: from_intent
+        value: ThoiDiemXetBoNhiemBaiNhiemChucDanhGiangDay
+        intent: ThoiDiemXetBoNhiemBaiNhiemChucDanhGiangDay
+      - type: from_intent
+        value: HoiVeNhiemVuChucDanhGiangDay
+        intent: HoiVeNhiemVuChucDanhGiangDay
+      - type: from_intent
+        value: HoiVeHoiDong
+        intent: HoiVeHoiDong
+      - type: from_intent
+        value: QuyTrinhBoNhiemChucDanh
+        intent: QuyTrinhBoNhiemChucDanh
+
   doi_tuong:
     type: text
     influence_conversation: false
@@ -96,7 +120,24 @@ slots:
         entity: actionTT17
       - type: from_text
         intent: inform
-
+  chucDanh:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: GiangVien
+      - type: from_entity
+        entity: chucDanh
+      - type: from_text
+        intent: inform
+  capBac:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: capBac
+      - type: from_text
+        intent: inform
 forms:
   trach_nhiem_quyen_han_form:
     required_slots:
@@ -116,6 +157,15 @@ forms:
   thoiDiemChucDanhGiangDay_form:
     required_slots:
       - actionTT17
+  chucDanhGiangDay_form:
+    required_slots:
+      - chucDanh
+  capBacHoiDong_form:
+    required_slots:
+      - capBac
+  chucDanhBoNhiem_form:
+    required_slots:
+      - chucDanh
 
 responses:
   utter_chaohoi:
@@ -130,6 +180,10 @@ responses:
     - text: "Bạn muốn biết quy trình xây dựng chương trình công tác trong khoảng thời gian nào (Năm, Học kỳ, Tháng, Quý, Tuần)?"
   utter_ask_actionTT17:
     - text: "Bạn muốn biết trường hợp nào? (bổ nhiệm, bãi nhiệm, miễn nhiệm)"
+  utter_ask_chucDanh:
+    - text: "Bạn muốn biết chức danh nào? (giảng viên, giảng viên chính, trợ giảng)?"
+  utter_ask_capBac:
+    - text: "Bạn muốn biết cấp bậc nào? (cấp bộ, cấp trường)?"
 
 session_config:
   session_expiration_time: 60
