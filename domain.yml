@@ -22,6 +22,8 @@ intents:
   - ThamQuyenBoNhiemBaiNhiemChucDanhGiangDay
   - NguyenTacBoNhiemBaiNhiemChucNangGiangDay
   - HoSoThuTucMienNhiemBaiNhiemCh
+  - CacTruongHopBoNhiemBaiNhiemChucDanhGiangDay
+  - ThoiDiemXetBoNhiemBaiNhiemChucDanhGiangDay
   - HoiVeDieu
   - nlu_fallback
 
@@ -30,6 +32,8 @@ actions:
   - trachNhiemTiepCBCSAction
   - phamViGiaiQuyetCongViecAction
   - quyTrinhXayDungChuongTrinhCongTacAction
+  - cacTruongHopBoNhiemBaiNhiemChucDanhGiangDayAction
+  - thoiDiemXetBoNhiemBaiNhiemChucDanhGiangDayAction
   - customActionBase
   - hoiVeDieuAction
   - utter_chaohoi
@@ -41,16 +45,13 @@ entities:
   - GiangVien
   - CBCS
   - GiangVienThinhGiang
-  - Nam
-  - HocKy
-  - Thang
-  - Quy
-  - Tuan
   - HieuTruong
   - ThuTruong
   - PhoThuTruong
   - article_number
   - document_name
+  - time
+  - actionTT17
 
 slots:
   doi_tuong:
@@ -79,6 +80,22 @@ slots:
         entity: HieuTruong
       - type: from_text
         intent: inform
+  time:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: time
+      - type: from_text
+        intent: inform
+  actionTT17:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: actionTT17
+      - type: from_text
+        intent: inform
 
 forms:
   trach_nhiem_quyen_han_form:
@@ -90,6 +107,15 @@ forms:
   pham_vi_giai_quyet_cong_viec_form:
     required_slots:
       - doi_tuong
+  quyTrinhXayDungChuongTrinhCongTac_form:
+    required_slots:
+      - time
+  truongHopChucDanhGiangDay_form:
+    required_slots:
+      - actionTT17
+  thoiDiemChucDanhGiangDay_form:
+    required_slots:
+      - actionTT17
 
 responses:
   utter_chaohoi:
@@ -100,6 +126,10 @@ responses:
     - text: "Bạn muốn biết trách nhiệm và quyền hạn của đối tượng nào (Giảng viên, Giảng viên thỉnh giảng, Cán bộ chiến sĩ,...)?"
   utter_ask_doi_tuong_tiep_CSCS:
     - text: "Bạn muốn biết trách nhiệm của đối tượng nào (Hiệu trưởng, Thủ trưởng,...)?"
+  utter_ask_time:
+    - text: "Bạn muốn biết quy trình xây dựng chương trình công tác trong khoảng thời gian nào (Năm, Học kỳ, Tháng, Quý, Tuần)?"
+  utter_ask_actionTT17:
+    - text: "Bạn muốn biết trường hợp nào? (bổ nhiệm, bãi nhiệm, miễn nhiệm)"
 
 session_config:
   session_expiration_time: 60

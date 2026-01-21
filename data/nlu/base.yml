@@ -98,3 +98,22 @@ nlu:
       - Ai là người sáng lập ra Facebook?
       - Mặt trời mọc từ hướng nào?
       - Hôm nay là thứ mấy?
+  - intent: inform
+    examples: |
+      - [giảng viên](GiangVien)
+      - là [giảng viên](GiangVien)
+      - [giảng viên thỉnh giảng](GiangVienThinhGiang)
+      - của [giảng viên thỉnh giảng](GiangVienThinhGiang)
+      - [cán bộ chiến sĩ](CBCS)
+      - cho [cán bộ chiến sĩ](CBCS)
+      - [hiệu trưởng](HieuTruong)
+      - [thủ trưởng](ThuTruong)
+      - [phó thủ trưởng](PhoThuTruong)
+      - [năm](time)
+      - [học kỳ](time)
+      - [tháng](time)
+      - [quý](time)
+      - [tuần](time)
+      - [miễn nhiệm](actionTT17)
+      - là [bổ nhiệm](actionTT17)
+      - [bãi nhiệm](actionTT17)

@@ -61,18 +61,18 @@ rules:
     steps:
       - intent: TrinhTuToChucHop
       - action: customActionBase
-  - rule:
+  - rule: Kích hoạt form thời gian chương trình công tác
     steps:
       - intent: quy_trinh_xay_dung_chuong_trinh_cong_tac
+      - action: quyTrinhXayDungChuongTrinhCongTac_form
+      - active_loop: quyTrinhXayDungChuongTrinhCongTac_form
+  - rule: Hoàn tất form thời gian chương trình công tác
+    condition:
+      - active_loop: quyTrinhXayDungChuongTrinhCongTac_form
+    steps:
+      - action: quyTrinhXayDungChuongTrinhCongTac_form
+      - active_loop: null
       - action: quyTrinhXayDungChuongTrinhCongTacAction
-  - rule: chaohoi
-    steps:
-      - intent: chaohoi
-      - action: utter_chaohoi
-  - rule: tambiet
-    steps:
-      - intent: tambiet
-      - action: utter_tambiet
   - rule: NguyenTacToChucHop
     steps:
       - intent: NguyenTacToChucHop
@@ -105,16 +105,3 @@ rules:
     steps:
       - intent: HoSoThuTucMienNhiemBaiNhiemChucDanhGiangDay
       - action: customActionBase
-  - rule: HoiVeDieu
-    steps:
-      - intent: HoiVeDieu
-      - action: hoiVeDieuAction
-  - rule: fallback
-    steps:
-      - intent: nlu_fallback
-      # - action: action_phogpt_fallback
-      - action: action_fallback_ollama_phogpt
-  - rule: OutOfScope
-    steps:
-      - intent: out_out_scope
-      - action: action_fallback_ollama_phogpt

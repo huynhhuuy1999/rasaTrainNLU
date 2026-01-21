@@ -26,17 +26,6 @@ nlu:
       - Cho tôi biết về quyền hạn?
       - Trách nhiệm quy định như thế nào?
       - Ai có quyền hạn gì?
-  - intent: inform
-    examples: |
-      - [giảng viên](GiangVien)
-      - là [giảng viên](GiangVien)
-      - [giảng viên thỉnh giảng](GiangVienThinhGiang)
-      - của [giảng viên thỉnh giảng](GiangVienThinhGiang)
-      - [cán bộ chiến sĩ](CBCS)
-      - cho [cán bộ chiến sĩ](CBCS)
-      - [hiệu trưởng](HieuTruong)
-      - [thủ trưởng](ThuTruong)
-      - [phó thủ trưởng](PhoThuTruong)
   - intent: NguyenTacLamViec
     examples: |
       - Nguyên tắc làm việc của trường là gì?
@@ -85,15 +74,15 @@ nlu:
       - Các bước tổ chức cuộc họp tại Trường gồm những gì?
   - intent: quy_trinh_xay_dung_chuong_trinh_cong_tac
     examples: |
-      - Quy trình xây dựng chương trình công tác [năm]{"entity":"Nam"} như thế nào?
-      - Trình tự xây dựng chương trình công tác [năm]{"entity":"Nam"}?
-      - Quy trình xây dựng chương trình công tác [học kỳ]{"entity":"HocKy"} ra sao?
-      - Khi nào xây dựng chương trình công tác [học kỳ]{"entity":"HocKy"}?
-      - Quy trình xây dựng chương trình công tác [tháng]{"entity":"Thang"} như thế nào?
-      - Chương trình công tác [tháng]{"entity":"Thang"} được xây dựng ra sao?
-      - Quy trình xây dựng chương trình công tác [quý]{"entity":"Quy"} như thế nào?
-      - Trình tự xây dựng chương trình công tác [quý]{"entity":"Quy"}?
-      - Quy trình xây dựng chương trình công tác [tuần]{"entity":"Tuan"} như thế nào?
+      - Quy trình xây dựng chương trình công tác [năm](time) như thế nào?
+      - Trình tự xây dựng chương trình công tác [năm](time)?
+      - Quy trình xây dựng chương trình công tác [học kỳ](time) ra sao?
+      - Khi nào xây dựng chương trình công tác [học kỳ](time)?
+      - Quy trình xây dựng chương trình công tác [tháng](time) như thế nào?
+      - Chương trình công tác [tháng](time) được xây dựng ra sao?
+      - Quy trình xây dựng chương trình công tác [quý](time) như thế nào?
+      - Trình tự xây dựng chương trình công tác [quý](time)?
+      - Quy trình xây dựng chương trình công tác [tuần](time) như thế nào?
   - intent: NguyenTacToChucHop
     examples: |
       - Nguyên tắc tổ chức hội nghị, cuộc họp là gì?

@@ -3,7 +3,6 @@ from typing import Any, Dict, List, Text
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SessionStarted, ActionExecuted
 
 from dotenv import load_dotenv
 import requests
@@ -90,7 +89,7 @@ class TrachNhiemTiepCBCSAction(Action):
             session = drv.session(database=NEO4J_DATABASE)
             entities = tracker.latest_message["entities"]
             doi_tuong = tracker.get_slot("doi_tuong_tiep_CSCS")
-            print("doi_tuong", doi_tuong)
+            print("doi_tuong_tiep_CSCS", doi_tuong)
             hieuTruong = next(
                 (e["entity"] for e in entities if e["entity"] == "HieuTruong"), None
             )
@@ -184,31 +183,19 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
         drv = get_driver()
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
-            entities = tracker.latest_message["entities"]
-            nam = next((e["value"] for e in entities if e["entity"] == "Nam"), None)
-            hocKy = next((e["value"] for e in entities if e["entity"] == "HocKy"), None)
-            thang = next((e["value"] for e in entities if e["entity"] == "Thang"), None)
-            quy = next((e["value"] for e in entities if e["entity"] == "Quy"), None)
-            tuan = next((e["value"] for e in entities if e["entity"] == "Tuan"), None)
-
-            answers = None
-            entity = ""
-
-            if nam:
-                entity = "Nam"
-            elif hocKy:
-                entity = "HocKy"
-            elif thang:
-                entity = "Thang"
-            elif quy:
-                entity = "Quy"
-            elif tuan:
-                entity = "Tuan"
-            if entity:
+            # entities = tracker.latest_message["entities"]
+            time = tracker.get_slot("time")
+            print("time", time)
+            entityTime = session.run(
+                f"MATCH (e:Entity)"
+                f" WITH e, apoc.text.levenshteinSimilarity(e.text, '{time}') AS similarity"
+                f" ORDER BY similarity DESC LIMIT 1 RETURN e"
+            ).data()
+            print("result", entityTime)
+            if entityTime and len(entityTime) > 0:
                 result = session.run(
-                    f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{entity}"}})-[:BELONG_TO]->(i:Intent {{name:"QuyTrinhXayDungChuongTrinhCongTac"}})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
+                    f'MATCH (di:DIEU)-[:HAS_DIEU]->(a:Answer {{entity:"{entityTime[0]["e"]["name"]}"}})-[:BELONG_TO]->(i:Intent {{name:"QuyTrinhXayDungChuongTrinhCongTac"}})<-[:HAS_INTENT]-(do:DOCUMENT) return a,do,di LIMIT 1;'
                 ).data()
-
                 if result:
                     answers = [record["a"]["answer"] for record in result]
                     law = [
@@ -219,15 +206,22 @@ class QuyTrinhXayDungChuongTrinhCongTacAction(Action):
                         for record in result
                     ]
                     documents = [record["do"]["text"] for record in result]
-                    khoan = [record["a"]["khoan"] for record in result]
-            if answers:
-                dispatcher.utter_message(
-                    text=format_answer(law, answers, documents, khoan)
-                )
+                    khoan = [
+                        record["a"]["khoan"] if record["a"]["khoan"] else None
+                        for record in result
+                    ]
+                    if answers:
+                        dispatcher.utter_message(
+                            text=format_answer(law, answers, documents, khoan)
+                        )
+                    else:
+                        dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
+                    drv.close()
+                else:
+                    dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
-            drv.close()
-        return []
+        return [SlotSet("time", None)]
 
 
 class hoiVeDieuAction(Action):

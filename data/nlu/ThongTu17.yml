@@ -23,3 +23,14 @@ nlu:
       - Hồ sơ, thủ tục miễn nhiệm, bãi nhiệm chức danh giảng dạy?
       - Thủ tục miễn nhiệm chức danh giảng dạy?
       - Hồ sơ miễn nhiệm chức danh giảng dạy gồm những gì?
+  - intent: CacTruongHopBoNhiemBaiNhiemChucDanhGiangDay
+    examples: |
+      - Các trường hợp [miễn nhiệm](actionTT17) chức danh giảng dạy
+      - [bãi nhiệm](actionTT17) chức danh giảng dạy trong trường hợp nào?
+      - Các trường hợp [bổ nhiệm](actionTT17) chức danh giảng dạy
+      - Trường hợp nào [bổ nhiệm](actionTT17) chức danh giảng dạy
+  - intent: ThoiDiemXetBoNhiemBaiNhiemChucDanhGiangDay
+    examples: |
+      - Thời điểm xét [bổ nhiệm](actionTT17) chức danh giảng dạy
+      - Khi nào [bãi nhiệm](actionTT17) chức danh giảng dạy?
+      - [miễn nhiệm](actionTT17) chức danh giảng dạy vào thời điểm nào?
