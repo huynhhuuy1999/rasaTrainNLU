@@ -1,4 +1,5 @@
 import os
+import time
 from typing import Any, Dict, List, Text
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -24,6 +25,7 @@ class customActionBase(Action):
     def run(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[str, Any]
     ):
+        start_time = time.perf_counter()
         drv = get_driver()
         with drv.session() as session:
             session = drv.session(database=NEO4J_DATABASE)
@@ -42,6 +44,10 @@ class customActionBase(Action):
                 dispatcher.utter_message(text=format_answer(law, answers, documents))
             else:
                 dispatcher.utter_message(text=MESSAGE_FAILURE_RESPONSE)
+            end_time = time.perf_counter()
+            response_time = end_time - start_time
+            print(f"Response time: {response_time}")
+
         # drv.close()
         return []
 
@@ -94,7 +100,7 @@ class actionBaseWithEntityForm(Action):
                         for record in result
                     ]
                     documents = [record["do"]["text"] for record in result]
-
+                    # print("re", result[0]["a"]["khoan"])
                     if answers:
                         dispatcher.utter_message(
                             text=format_answer(
@@ -102,7 +108,7 @@ class actionBaseWithEntityForm(Action):
                                 answers,
                                 documents,
                                 (
-                                    result[0]["a"]["khoan"]
+                                    [result[0]["a"]["khoan"]]
                                     if result[0]["a"].get("khoan")
                                     else None
                                 ),

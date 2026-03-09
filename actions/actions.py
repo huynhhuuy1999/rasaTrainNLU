@@ -242,6 +242,8 @@ class hoiVeDieuAction(Action):
             document_name = next(
                 (e["value"] for e in entities if e["entity"] == "document_name"), None
             )
+            print("ayz", article_number)
+            print("agxxx", document_name)
 
             if article_number and document_name:
                 listDoc = session.run(
@@ -250,7 +252,7 @@ class hoiVeDieuAction(Action):
                     f"ORDER BY similarity DESC LIMIT 1 "
                     f"RETURN do.name AS name;"
                 ).data()
-
+                print("listDoc", listDoc)
                 if len(listDoc) > 0:
                     document_name = listDoc[0]["name"]
                 result = session.run(
@@ -258,6 +260,7 @@ class hoiVeDieuAction(Action):
                     f' WHERE do.name="{document_name}" ORDER BY a.khoan ASC '
                     f"RETURN a,di,do;"
                 ).data()
+                print("result", result)
                 if result:
                     answers = [record["a"]["answer"] for record in result]
                     law = [
